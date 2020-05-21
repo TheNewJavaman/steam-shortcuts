@@ -7,8 +7,7 @@ def find(x, y):
 
 
 # Load file data
-userid = "215954729"
-filepath = "C:/Program Files (x86)/Steam/userdata/%s/config/shortcuts.vdf" % userid
+filepath = "shortcuts.vdf"
 with open(filepath, "rb") as f:
     vdf_data = f.read()
 
