@@ -1,3 +1,5 @@
+# Hopefully this helps other people with similar projects!
+
 # A formatted hexdump template of shortcuts.vdf
 # Key:
 #   ... = string
