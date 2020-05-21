@@ -10,12 +10,9 @@ def find(x, y):
 userid = "215954729"
 filepath = "C:/Program Files (x86)/Steam/userdata/%s/config/shortcuts.vdf" % userid
 with open(filepath, "rb") as f:
-    vdf_data = f.read()
-
-pattern = rb"\x00(shortcuts\x00.*\x08)\x08"
-shortcut_object = find(pattern, vdf_data)
-pattern = rb"(\x00\d+\x00.*?\x08{1,2})"
-shortcut_strings = re.findall(pattern, shortcut_object)
+    data = f.read()
+pattern = rb"\x00\d+\x00.*?\x08\x08"
+shortcut_strings = re.findall(pattern, data)
 
 shortcuts = {}
 strings = [
@@ -65,7 +62,7 @@ for shortcut_string in shortcut_strings:
     shortcut["LastPlayTime"] = time_value
 
     # Tags
-    pattern = rb"tags\x00(.*?)\x08"
+    pattern = rb"tags\x00(.*?)\x08\x08"
     tags_string = find(pattern, shortcut_string)
     pattern = rb"\x01(\d+)\x00(.*?)\x00"
     tags_strings = re.findall(pattern, tags_string)
@@ -74,6 +71,5 @@ for shortcut_string in shortcut_strings:
 
     shortcuts[id] = shortcut
 
-# Write file data
 with open("shortcuts.json", "w") as f:
     json.dump({"shortcuts": shortcuts}, f, indent=4, sort_keys=True)
